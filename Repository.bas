@@ -1,17 +1,5 @@
 Attribute VB_Name = "Repository"
-Sub GetData(startDate As String, endDate As String, period As String, Symbols As Variant, OutputData As Worksheet)
-    Dim i As Integer
-    For i = LBound(Symbols) To UBound(Symbols)
-        Dim ticker As String
-        ticker = Symbols(i)
-        Call ExtractData(ticker, startDate, endDate, period, i, OutputData)
-    Next i
-    
-End Sub
-
-
-
-Sub ExtractData(Symbols As String, startDate As String, endDate As String, period As String, i As Integer, OutputData As Worksheet)
+Sub ExtractData(Symbols As String, startDate As String, endDate As String, OutputData As Worksheet)
     Dim resultFromYahoo As String
     Dim objRequest
     Dim csv_rows() As String
@@ -24,7 +12,7 @@ Sub ExtractData(Symbols As String, startDate As String, endDate As String, perio
     tickerURL = "https://query1.finance.yahoo.com/v7/finance/download/" & Symbols & _
         "?period1=" & startDate & _
         "&period2=" & endDate & _
-        "&interval=" & period & "&events=history"
+        "&interval=1d & events=history"
                
     Set objRequest = CreateObject("WinHttp.WinHttpRequest.5.1")
     With objRequest

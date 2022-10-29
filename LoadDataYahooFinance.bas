@@ -1,7 +1,3 @@
-Attribute VB_Name = "LoadDataYahooFinance"
-
-
-
 Sub loadDataYahooFinance(ticker As String, dateStart As String, dateEnd As String, shtName As String)
     Dim resultFromYahoo As String
     Dim objRequest
@@ -14,13 +10,13 @@ Sub loadDataYahooFinance(ticker As String, dateStart As String, dateEnd As Strin
     
     Dim OutputData As Worksheet
     Set OutputData = Worksheets(shtName)
-    startDate = (CDate(dateStart) - DateSerial(1970, 1, 1)) * 86400
-    endDate = (CDate(dateEnd) - DateSerial(1970, 1, 1)) * 86400
+    StartDate = (CDate(dateStart) - DateSerial(1970, 1, 1)) * 86400
+    EndDate = (CDate(dateEnd) - DateSerial(1970, 1, 1)) * 86400
     
 
     tickerURL = "https://query1.finance.yahoo.com/v7/finance/download/" & ticker & _
-        "?period1=" & startDate & _
-        "&period2=" & endDate & _
+        "?period1=" & StartDate & _
+        "&period2=" & EndDate & _
         "&interval=1d&events=history"
                
     Set objRequest = CreateObject("WinHttp.WinHttpRequest.5.1")
@@ -45,18 +41,8 @@ Sub loadDataYahooFinance(ticker As String, dateStart As String, dateEnd As Strin
     Next iRows
  
     OutputData.Cells(1, 1).Value = "Date"
-    OutputData.Cells(1, i + 1).Value = ticker
+    OutputData.Cells(1, 1 + 1).Value = ticker
     OutputData.Range(OutputData.Cells(2, 1), OutputData.Cells(UBound(dateArray, 1) + 2, 1)).Value = dateArray
-    OutputData.Range(OutputData.Cells(2, i + 1), OutputData.Cells(UBound(openArray, 1) + 2, i + 1)).Value = openArray
+    OutputData.Range(OutputData.Cells(2, 1 + 1), OutputData.Cells(UBound(openArray, 1) + 2, 1 + 1)).Value = openArray
     
 End Sub
-
-
-
-
-
-
-
-
-
-
